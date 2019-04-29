@@ -51,6 +51,14 @@ void RedLedOFF () {
 
 }
 
+void Wait500(){
+  delay(500);
+}
+
+void Wait1000(){
+  delay(1000);
+}
+
 void Show1(){
   val ++ ;
   Serial.println("Show"+String(val));
@@ -95,6 +103,8 @@ void setup() {
   sCmd.addCommand("RedLedON",RedLedON);
   sCmd.addCommand("RedLedOFF",RedLedOFF);
   sCmd.addCommand("Show1",Show1);
+  sCmd.addCommand("Wait500",Wait500);
+  sCmd.addCommand("Wait1000",Wait1000);
 
 
 
