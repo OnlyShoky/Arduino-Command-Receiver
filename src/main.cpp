@@ -1,0 +1,246 @@
+#ifdef MAIN1
+#include <Arduino.h>
+
+#include <SoftwareSerial.h>
+#include <SerialCommand.h>
+#include <LinkedList.h>
+
+SerialCommand sCmd;
+
+int pin6 = 6;   // choose the input pin (for a pushbutton)
+int pin5 = 5;   // choose the input pin (for a pushbutton)
+int pin4 = 4;   // choose the input pin (for a pushbutton)
+int pin2 = 2;   // choose the input pin (for a pushbutton)
+int val = 0;     // variable for reading the pin status
+// the setup routine runs once when you press reset:
+
+LinkedList<String> CommandList = LinkedList<String>();
+
+
+void GreenLedON () {
+ digitalWrite(pin4,HIGH);
+}
+
+void GreenLedOFF () {
+ digitalWrite(pin4,LOW);
+}
+
+void LedON () {
+ digitalWrite(pin4,HIGH);
+}
+
+void LedOFF () {
+ digitalWrite(pin4,LOW);
+}
+
+void YellowLedON () {
+ digitalWrite(pin5,HIGH);
+}
+
+void YellowLedOFF () {
+ digitalWrite(pin5,LOW);
+}
+
+void RedLedON () {
+ digitalWrite(pin6,HIGH);
+
+}
+
+void RedLedOFF () {
+ digitalWrite(pin6,LOW);
+
+}
+
+void Show1(){
+  val ++ ;
+  Serial.println("Show"+String(val));
+  RedLedON () ; 
+  delay(1000);
+  RedLedOFF();
+  delay(1000);
+  YellowLedON();
+  delay(1000);
+  RedLedON();
+  delay(1000);
+  YellowLedOFF();
+  delay(1000);
+  RedLedOFF();
+  delay(1000);
+  GreenLedON();
+  delay(500);
+  GreenLedOFF();
+  delay(500);
+
+}
+
+
+
+
+
+void setup() {
+  pinMode(pin2, INPUT);    // declare pushbutton as input
+  pinMode(pin4, OUTPUT);    // declare pushbutton as output
+  pinMode(pin5, OUTPUT);    // declare pushbutton as output
+  pinMode(pin6, OUTPUT);    // declare pushbutton as output
+
+  // initialize serial communication at 9600 bits per second:
+  Serial.begin(9600);
+  while (!Serial); 
+ 
+ // Add all the commands that we want to do
+  sCmd.addCommand("GreenLedON",GreenLedON);
+  sCmd.addCommand("GreenLedOFF",GreenLedOFF);
+  sCmd.addCommand("YellowLedON",YellowLedON);
+  sCmd.addCommand("YellowLedOFF",YellowLedOFF);
+  sCmd.addCommand("RedLedON",RedLedON);
+  sCmd.addCommand("RedLedOFF",RedLedOFF);
+  sCmd.addCommand("Show1",Show1);
+
+
+
+  
+
+}
+
+
+
+// the loop routine runs over and over again forever:
+void loop() {
+
+  
+  if (Serial.available() > 0){
+    sCmd.readSerial();
+  }
+  
+  
+
+}
+
+#endif
+
+#ifdef MAIN2
+
+#include <Arduino.h>
+
+#include <SoftwareSerial.h>
+#include <SerialCommand.h>
+#include <LinkedList.h>
+
+SerialCommand sCmd;
+
+int pin6 = 6;   // choose the input pin (for a pushbutton)
+int pin5 = 5;   // choose the input pin (for a pushbutton)
+int pin4 = 4;   // choose the input pin (for a pushbutton)
+int pin2 = 2;   // choose the input pin (for a pushbutton)
+int val = 0;     // variable for reading the pin status
+// the setup routine runs once when you press reset:
+
+LinkedList<String> CommandList = LinkedList<String>();
+
+
+void GreenLedON () {
+ digitalWrite(pin4,HIGH);
+}
+
+void GreenLedOFF () {
+ digitalWrite(pin4,LOW);
+}
+
+void LedON () {
+ digitalWrite(pin4,HIGH);
+}
+
+void LedOFF () {
+ digitalWrite(pin4,LOW);
+}
+
+void YellowLedON () {
+ digitalWrite(pin5,HIGH);
+}
+
+void YellowLedOFF () {
+ digitalWrite(pin5,LOW);
+}
+
+void RedLedON () {
+ digitalWrite(pin6,HIGH);
+ val ++;
+ CommandList.add("show "+String(val));
+
+}
+
+void RedLedOFF () {
+ digitalWrite(pin6,LOW);
+ for(int i =0;i<CommandList.size();i++){
+   Serial.println(CommandList.get(i));
+ }
+}
+
+void Show1(){
+  val ++ ;
+  Serial.println("Show"+String(val));
+  RedLedON () ; 
+  delay(1000);
+  RedLedOFF();
+  delay(1000);
+  YellowLedON();
+  delay(1000);
+  RedLedON();
+  delay(1000);
+  YellowLedOFF();
+  delay(1000);
+  RedLedOFF();
+  delay(1000);
+  GreenLedON();
+  delay(500);
+  GreenLedOFF();
+  delay(500);
+
+}
+
+
+
+
+
+void setup() {
+  // initialize serial communication at 9600 bits per second:
+  pinMode(pin2, INPUT);    // declare pushbutton as input
+  pinMode(pin4, OUTPUT);    // declare pushbutton as output
+  pinMode(pin5, OUTPUT);    // declare pushbutton as output
+  pinMode(pin6, OUTPUT);    // declare pushbutton as output
+
+  Serial.begin(9600);
+  while (!Serial); 
+ 
+  sCmd.addCommand("GreenLedON",GreenLedON);
+  sCmd.addCommand("GreenLedOFF",GreenLedOFF);
+  sCmd.addCommand("YellowLedON",YellowLedON);
+  sCmd.addCommand("YellowLedOFF",YellowLedOFF);
+  sCmd.addCommand("RedLedON",RedLedON);
+  sCmd.addCommand("RedLedOFF",RedLedOFF);
+  sCmd.addCommand("Show1",Show1);
+
+
+
+  
+
+}
+
+
+
+// the loop routine runs over and over again forever:
+void loop() {
+
+  
+  if (Serial.available() > 0){
+    sCmd.readSerial();
+  }
+  
+  
+
+}
+
+
+#endif
+
+
