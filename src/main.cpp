@@ -5,6 +5,8 @@
 #include <SerialCommand.h>
 #include <LinkedList.h>
 
+
+
 SerialCommand sCmd;
 
 int pin6 = 6;   // choose the input pin (for a pushbutton)
@@ -106,10 +108,6 @@ void setup() {
   sCmd.addCommand("Wait500",Wait500);
   sCmd.addCommand("Wait1000",Wait1000);
 
-
-
-  
-
 }
 
 
@@ -174,16 +172,10 @@ void YellowLedOFF () {
 
 void RedLedON () {
  digitalWrite(pin6,HIGH);
- val ++;
- CommandList.add("show "+String(val));
-
 }
 
 void RedLedOFF () {
  digitalWrite(pin6,LOW);
- for(int i =0;i<CommandList.size();i++){
-   Serial.println(CommandList.get(i));
- }
 }
 
 void Show1(){
@@ -208,6 +200,15 @@ void Show1(){
 
 }
 
+void Wait500(){
+  delay(500);
+}
+
+void Wait1000(){
+  delay(1000);
+}
+
+
 
 
 
@@ -222,13 +223,16 @@ void setup() {
   Serial.begin(9600);
   while (!Serial); 
  
-  sCmd.addCommand("GreenLedON",GreenLedON);
-  sCmd.addCommand("GreenLedOFF",GreenLedOFF);
-  sCmd.addCommand("YellowLedON",YellowLedON);
-  sCmd.addCommand("YellowLedOFF",YellowLedOFF);
-  sCmd.addCommand("RedLedON",RedLedON);
-  sCmd.addCommand("RedLedOFF",RedLedOFF);
-  sCmd.addCommand("Show1",Show1);
+  sCmd.addCommand("1",GreenLedON);
+  sCmd.addCommand("2",GreenLedOFF);
+  sCmd.addCommand("3",YellowLedON);
+  sCmd.addCommand("4",YellowLedOFF);
+  sCmd.addCommand("5",RedLedON);
+  sCmd.addCommand("6",RedLedOFF);
+  sCmd.addCommand("7",Show1);
+
+  sCmd.addCommand("8",Wait500);
+  sCmd.addCommand("9",Wait1000);
 
 
 
@@ -244,9 +248,7 @@ void loop() {
   
   if (Serial.available() > 0){
     sCmd.readSerial();
-  }
-  
-  
+  } 
 
 }
 
