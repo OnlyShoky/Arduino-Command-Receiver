@@ -1,9 +1,58 @@
+#ifdef MAINtest1
+
+#include <Cabina_agbar.h> 
+#include <SerialCommand.h>
+
+
+SerialCommand sCmd;
+
+
+
+
+void setup() {
+  setup_agbar(); 
+  sCmd.addCommand("1",stopAll);
+  sCmd.addCommand("2",setHeatON);
+  sCmd.addCommand("3",setHeatOFF);
+
+  sCmd.addCommand("4",setVibrationON);
+  sCmd.addCommand("5",setVibrationOFF);
+  
+  sCmd.addCommand("6",setWaiting);
+  
+
+
+
+
+}
+
+// the loop routine runs over and over again forever:
+void loop() {
+
+  if (Serial.available() > 0){
+    sCmd.readSerial();
+  }
+
+  loop_agbar();
+  
+  
+
+  
+
+}
+
+
+#endif
+
+
+
 #ifdef MAIN1
 #include <Arduino.h>
 
 #include <SoftwareSerial.h>
 #include <SerialCommand.h>
 #include <LinkedList.h>
+#include <Cabina_agbar.h>
 
 
 
@@ -82,6 +131,7 @@ void Show1(){
   delay(500);
 
 }
+
 
 
 
@@ -230,7 +280,6 @@ void setup() {
   sCmd.addCommand("5",RedLedON);
   sCmd.addCommand("6",RedLedOFF);
   sCmd.addCommand("7",Show1);
-
   sCmd.addCommand("8",Wait500);
   sCmd.addCommand("9",Wait1000);
 
