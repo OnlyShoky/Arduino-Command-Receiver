@@ -252,7 +252,7 @@ void setup_agbar() {
   Serial.begin(9600);
   setWaiting();
 }
-
+//ue pasa
 void loop_agbar() {
  
   if (Serial.available())  {
