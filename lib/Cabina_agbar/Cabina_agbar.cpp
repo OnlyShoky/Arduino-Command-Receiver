@@ -11,7 +11,7 @@
  */
 
 #include "Cabina_agbar.h" 
-bool debug = true;
+bool debug = false;
 
 //Temps (ms)
 
@@ -129,7 +129,6 @@ void stopAll(){
 
 
 void setWaiting(){
-
   start = 0;
   stopAll();
   if(debug) Serial.println("Waiting..");
@@ -145,8 +144,6 @@ void setHeat(bool stateHeat1, bool stateHeat2){
 void setHeatON(){
   bool stateHeat1 = true ;
   bool stateHeat2 = true ;
-
-
   digitalWrite(heat1Pin, !stateHeat1);
   digitalWrite(heat2Pin, !stateHeat2);
 }
@@ -154,8 +151,6 @@ void setHeatON(){
 void setHeatOFF(){
   bool stateHeat1 = false ;
   bool stateHeat2 = false ;
-
-
   digitalWrite(heat1Pin, !stateHeat1);
   digitalWrite(heat2Pin, !stateHeat2);
 }
@@ -179,6 +174,63 @@ void setVibrationOFF(){ //if there are 2 buttkickers, they act as one
   digitalWrite(vibration2Pin, !state);
 }
 
+void setSprayON(){
+  sprayServo.write(sprayONval);
+}
+
+void setSprayOFF(){
+  sprayServo.write(sprayOFFval);
+}
+void setSmellON(){
+  smellServo.write(sprayONval);
+}
+
+void setSmellOFF(){
+  smellServo.write(sprayOFFval);
+}
+
+void setVent5(){
+ DmxMaster.write(1, intVent5);
+}
+void setVent4(){
+ DmxMaster.write(1, intVent4);
+}
+void setVent3(){
+ DmxMaster.write(1, intVent3);
+}
+void setVent2(){
+ DmxMaster.write(1, intVent2);
+}
+void setVent1(){
+ DmxMaster.write(1, intVent1);
+}
+void setVentOFF(){
+   DmxMaster.write(1, 0);
+}
+
+void setStart(){
+    stopAll();
+    if(debug) Serial.println("Inici Programa");
+    digitalWrite(ledPin, HIGH); 
+
+}
+
+void setD(){
+    digitalWrite(ledPin, LOW);
+    if(debug) Serial.println("nebI1");
+    sprayServo.write(sprayONval);
+    smellServo.write(sprayONval);
+
+    delay(2000);
+
+    if(debug) Serial.println("nebF1");
+    sprayServo.write(sprayOFFval);
+    smellServo.write(sprayOFFval);
+    setWaiting();
+
+}
+
+        
 void setup_agbar() {
 
   //Ventilador

@@ -11,18 +11,22 @@ SerialCommand sCmd;
 
 void setup() {
   setup_agbar(); 
-  sCmd.addCommand("1",stopAll);
-  sCmd.addCommand("2",setHeatON);
-  sCmd.addCommand("3",setHeatOFF);
-
-  sCmd.addCommand("4",setVibrationON);
-  sCmd.addCommand("5",setVibrationOFF);
-  
-  sCmd.addCommand("6",setWaiting);
-  
-
-
-
+  sCmd.addCommand("Stopall",stopAll);
+  sCmd.addCommand("sHeatON",setHeatON);
+  sCmd.addCommand("sHeatOFF",setHeatOFF);
+  sCmd.addCommand("sVibrationON",setVibrationON);
+  sCmd.addCommand("sVibrationOFF",setVibrationOFF);
+  sCmd.addCommand("sWaiting",setWaiting);
+  sCmd.addCommand("sSprayON",setSprayON);
+  sCmd.addCommand("sSprayOFF",setSprayOFF);
+  sCmd.addCommand("sSmellON",setSmellON);
+  sCmd.addCommand("sSmellOFF",setSmellOFF);
+  sCmd.addCommand("sVent5",setVent5);
+  sCmd.addCommand("sVent4",setVent4);
+  sCmd.addCommand("sVent3",setVent3);
+  sCmd.addCommand("sVent2",setVent2);
+  sCmd.addCommand("sVent1",setVent1);
+  sCmd.addCommand("sVentOFF",setVentOFF);
 
 }
 
