@@ -1,0 +1,7 @@
+Cabina_Agbar KEYWORD1
+stopAll	KEYWORD2
+setWaiting	KEYWORD2
+setHeat	KEYWORD2
+setVibration KEYWORD2
+setup_agbar KEYWORD2
+loop_agbar KEYWORD2

@@ -1,9 +1,84 @@
+// Verificar que el numero de comandos añadidos con sCmd.add es lo suficiente grande ,sino cambiarlo a SerialCommand.h y aumentarlo
+// Siempre tener una function Start y Stop , y añadir-los 
+// No hacer funciones que se bloquen o con delay , porque hace freezear todo
+
+#ifdef MAINtest1
+
+#include <Cabina_agbar.h> 
+#include <SerialCommand.h>
+
+
+SerialCommand sCmd;
+
+//Method that will do all we want on the begining
+void Start(){
+  setStart();
+
+}
+
+//Method that turn off al the system that can be turned on , on the execution
+void Stop(){
+  stopAll();
+}
+
+
+void setup() {
+  setup_agbar(); 
+  //Maintain this two commands , because unity will use them when we click start or stop , so if they are missing the program will not work
+  sCmd.addCommand("Start",Start);
+  sCmd.addCommand("Stop",Stop);
+
+  // Add all the commands that we want to do
+  sCmd.addCommand("sHeatON",setHeatON);
+  sCmd.addCommand("sHeatOFF",setHeatOFF);
+  sCmd.addCommand("sVibrationON",setVibrationON);
+  sCmd.addCommand("sVibrationOFF",setVibrationOFF);
+  sCmd.addCommand("sWaiting",setWaiting);
+  sCmd.addCommand("sSprayON",setSprayON);
+  sCmd.addCommand("sSprayOFF",setSprayOFF);
+  sCmd.addCommand("sSmellON",setSmellON);
+  sCmd.addCommand("sSmellOFF",setSmellOFF);
+  sCmd.addCommand("sVent5",setVent5);
+  sCmd.addCommand("sVent4",setVent4);
+  sCmd.addCommand("sVent3",setVent3);
+  sCmd.addCommand("sVent2",setVent2);
+  sCmd.addCommand("sVent1",setVent1);
+  sCmd.addCommand("sVentOFF",setVentOFF);
+  sCmd.addCommand("setD",setD);
+
+
+
+  
+
+}
+
+// the loop routine runs over and over again forever:
+void loop() {
+
+  if (Serial.available() > 0){
+    sCmd.readSerial();
+  }
+
+  loop_agbar();
+  
+  
+
+  
+
+}
+
+
+#endif
+
+
+
 #ifdef MAIN1
 #include <Arduino.h>
 
 #include <SoftwareSerial.h>
 #include <SerialCommand.h>
 #include <LinkedList.h>
+#include <Cabina_agbar.h>
 
 
 
@@ -45,7 +120,6 @@ void YellowLedOFF () {
 
 void RedLedON () {
  digitalWrite(pin6,HIGH);
-
 }
 
 void RedLedOFF () {
@@ -61,27 +135,25 @@ void Wait1000(){
   delay(1000);
 }
 
-void Show1(){
-  val ++ ;
-  Serial.println("Show"+String(val));
-  RedLedON () ; 
-  delay(1000);
-  RedLedOFF();
-  delay(1000);
-  YellowLedON();
-  delay(1000);
-  RedLedON();
-  delay(1000);
-  YellowLedOFF();
-  delay(1000);
-  RedLedOFF();
-  delay(1000);
-  GreenLedON();
-  delay(500);
-  GreenLedOFF();
-  delay(500);
 
+//Method that will do all we want on the begining
+void Start(){
+  RedLedON ();
+  YellowLedON();
+  GreenLedON();
+  delay(200);
+  RedLedOFF();
+  YellowLedOFF();
+  GreenLedOFF();
 }
+
+//Method that turn off al the system that can be turned on , on the execution
+void Stop(){
+  RedLedOFF();
+  YellowLedOFF();
+  GreenLedOFF();
+}
+
 
 
 
@@ -97,6 +169,11 @@ void setup() {
   Serial.begin(9600);
   while (!Serial); 
  
+
+  //Maintain this two commands , because unity will use them when we click start or stop , so if they are missing the program will not work
+  sCmd.addCommand("Start",Start);
+  sCmd.addCommand("Stop",Stop);
+
  // Add all the commands that we want to do
   sCmd.addCommand("GreenLedON",GreenLedON);
   sCmd.addCommand("GreenLedOFF",GreenLedOFF);
@@ -104,9 +181,11 @@ void setup() {
   sCmd.addCommand("YellowLedOFF",YellowLedOFF);
   sCmd.addCommand("RedLedON",RedLedON);
   sCmd.addCommand("RedLedOFF",RedLedOFF);
-  sCmd.addCommand("Show1",Show1);
   sCmd.addCommand("Wait500",Wait500);
   sCmd.addCommand("Wait1000",Wait1000);
+
+
+
 
 }
 
@@ -230,7 +309,6 @@ void setup() {
   sCmd.addCommand("5",RedLedON);
   sCmd.addCommand("6",RedLedOFF);
   sCmd.addCommand("7",Show1);
-
   sCmd.addCommand("8",Wait500);
   sCmd.addCommand("9",Wait1000);
 
