@@ -10,12 +10,25 @@
 
 SerialCommand sCmd;
 
+//Method that will do all we want on the begining
+void Start(){
+  setStart();
 
+}
+
+//Method that turn off al the system that can be turned on , on the execution
+void Stop(){
+  stopAll();
+}
 
 
 void setup() {
   setup_agbar(); 
-  sCmd.addCommand("Stopall",stopAll);
+  //Maintain this two commands , because unity will use them when we click start or stop , so if they are missing the program will not work
+  sCmd.addCommand("Start",Start);
+  sCmd.addCommand("Stop",Stop);
+
+  // Add all the commands that we want to do
   sCmd.addCommand("sHeatON",setHeatON);
   sCmd.addCommand("sHeatOFF",setHeatOFF);
   sCmd.addCommand("sVibrationON",setVibrationON);
@@ -31,6 +44,11 @@ void setup() {
   sCmd.addCommand("sVent2",setVent2);
   sCmd.addCommand("sVent1",setVent1);
   sCmd.addCommand("sVentOFF",setVentOFF);
+  sCmd.addCommand("setD",setD);
+
+
+
+  
 
 }
 
