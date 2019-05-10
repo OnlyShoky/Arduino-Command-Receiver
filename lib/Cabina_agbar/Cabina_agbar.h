@@ -33,6 +33,8 @@ void setVent1();
 void setVentOFF();
 void setup_agbar();
 void loop_agbar();
+void setStart();
+void setD();
 
 
 
