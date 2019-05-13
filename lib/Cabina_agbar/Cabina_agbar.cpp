@@ -12,76 +12,14 @@
 
 #include "Cabina_agbar.h" 
 bool debug = false;
-/*TODO
-//Temps (ms)
 
-//CALOR
-long calorI1 = 31000;
-long calorF1 = 44000;
-
-long calorI2 = 133000;
-long calorF2 = 150000;
-
-//VIBRACIO
-long vibrI1 = 21000;
-long vibrF1 = 31000;
-
-/*long vibrI2 = 125000;
-long vibrF2 = 131000;
-
-long vibrI3 = 176000;
-long vibrF3 = 178000;*/
-
-//VENT
-/* TODO
-long ventI1 = 52000;
-long ventI2 = 66000;
-long ventF1 = 85000;
-
-long ventI3 = 110000;
-long ventI4 = 131000;
-long ventF2 = 145000;
-
-long ventI5 = 165000;
-long ventF3 = 180000;
-
-*/
 //intensitats VENT (0-255)
-int intVent1 = 80;
-int intVent2 = 50;
-int intVent3 = 70;
-int intVent4 = 0;
-int intVent5 = 255;
-
-/*
-long ventI1 = 14000;
-long ventFort1 = 60000;
-long ventMig1 = 68000;
-long ventSuau1 = 73000;
-long ventMig2 = 118000;
-long ventFort2 = 126000;
-long ventF2 = 131000;
-*/
-
-/*TODO
-//NEBULITZACIO
-long nebI1 = -1;
-long nebF1 = -1;
-
-long nebI2 = 113500;
-long nebF2 = 115500;
-
-
-//OLOR
-long olorI1 = (60*2 + 11)*1000L;
-long olorF1 = (60*2 + 13)*1000L;
-
-/*long olorI2 = 101000;
-long olorF2 = 106000;*/
-
-//FINAL
-//TODO long endOfTimeline = 181000;
-
+int intVent1 = 50;
+int intVent2 = 80;
+int intVent3 = 100;
+int intVent4 = 150;
+int intVent5 = 200;
+int intVent6 = 255;
 
 //pins
 
@@ -99,19 +37,8 @@ Servo smellServo;
 const int sprayONval = 60;
 const int sprayOFFval = 0;
 
-/*
-char c;
-int start;
-long instantInici;
-unsigned long tiempo;
-*/
 //led blink variables
 int ledState = LOW;
-
-
-unsigned long previousMillis = 0;
-unsigned long currentMillis = 0;
-const long interval = 200;
 
 void stopAll(){
 
@@ -145,7 +72,14 @@ void setHeat(bool stateHeat1, bool stateHeat2){
   digitalWrite(heat1Pin, !stateHeat1);
   digitalWrite(heat2Pin, !stateHeat2);
 }
+void setHeatRightON(){
+  setHeat(false, true);
 
+}
+void setHeatLeftON(){
+  setHeat(true, false);
+
+}
 void setHeatON(){
   setHeat(true, true);
 
@@ -174,10 +108,10 @@ void setVibrationOFF(){ //if there are 2 buttkickers, they act as one
 void setSprayON(){
   sprayServo.write(sprayONval);
 }
-
 void setSprayOFF(){
   sprayServo.write(sprayOFFval);
 }
+
 void setSmellON(){
   smellServo.write(sprayONval);
 }
@@ -185,7 +119,9 @@ void setSmellON(){
 void setSmellOFF(){
   smellServo.write(sprayOFFval);
 }
-
+void setVent6(){
+ DmxMaster.write(1, intVent6);
+}
 void setVent5(){
  DmxMaster.write(1, intVent5);
 }
@@ -251,3 +187,62 @@ void setup_agbar() {
 }
 
 
+
+//Servo test
+//Spray different angles
+void setSpray20(){
+  sprayServo.write(20);
+}
+void setSpray40(){
+  sprayServo.write(40);
+}
+void setSpray60(){
+  sprayServo.write(60);
+}
+void setSpray80(){
+  sprayServo.write(80);
+}
+void setSpray100(){
+  sprayServo.write(100);
+}
+void setSpray120(){
+  sprayServo.write(120);
+}
+void setSpray140(){
+  sprayServo.write(140);
+}
+void setSpray160(){
+  sprayServo.write(160);
+}
+void setSpray180(){
+  sprayServo.write(180);
+}
+
+//Smell different angles
+void setSmell20(){
+  smellServo.write(20);
+}
+void setSmell40(){
+  smellServo.write(40);
+}
+void setSmell60(){
+  smellServo.write(60);
+}
+void setSmell80(){
+  smellServo.write(80);
+}
+void setSmell100(){
+  smellServo.write(100);
+}
+void setSmell120(){
+  smellServo.write(120);
+}
+void setSmell140(){
+  smellServo.write(140);
+}
+void setSmell160(){
+  smellServo.write(160);
+}
+void setSmell180(){
+  smellServo.write(180);
+}

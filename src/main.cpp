@@ -29,18 +29,19 @@ void setup() {
   sCmd.addCommand("Stop",Stop);
 
   // Add all the commands that we want to do
+  sCmd.addCommand("sHeatRON",setHeatRightON);
+  sCmd.addCommand("sHeatLON",setHeatLeftON);
   sCmd.addCommand("sHeatON",setHeatON);
   sCmd.addCommand("sHeatOFF",setHeatOFF);
-  
   sCmd.addCommand("sVibrON",setVibrationON);
   sCmd.addCommand("sVibrOFF",setVibrationOFF);
-  
   sCmd.addCommand("sVentOFF",setVentOFF);
   sCmd.addCommand("sWaiting",setWaiting);
   sCmd.addCommand("sSprayON",setSprayON);
   sCmd.addCommand("sSprayOFF",setSprayOFF);
   sCmd.addCommand("sSmellON",setSmellON);
   sCmd.addCommand("sSmellOFF",setSmellOFF);
+  sCmd.addCommand("sVent6",setVent6);
   sCmd.addCommand("sVent5",setVent5);
   sCmd.addCommand("sVent4",setVent4);
   sCmd.addCommand("sVent3",setVent3);
@@ -48,6 +49,31 @@ void setup() {
   sCmd.addCommand("sVent1",setVent1);
   sCmd.addCommand("sVentOFF",setVentOFF);
   sCmd.addCommand("setD",setD);
+
+//Servos
+  sCmd.addCommand("sSpray20",setSpray20);
+  sCmd.addCommand("sSpray40",setSpray40);
+  sCmd.addCommand("sSpray60",setSpray60);
+  sCmd.addCommand("sSpray80",setSpray80);
+  sCmd.addCommand("sSpray100",setSpray100);
+  sCmd.addCommand("sSpray120",setSpray120);
+  sCmd.addCommand("sSpray140",setSpray140);
+  sCmd.addCommand("sSpray160",setSpray160);
+  sCmd.addCommand("sSpray180",setSpray180);
+
+  sCmd.addCommand("sSmell20",setSmell20);
+  sCmd.addCommand("sSmell40",setSmell40);
+  sCmd.addCommand("sSmell60",setSmell60);
+  sCmd.addCommand("sSmell80",setSmell80);
+  sCmd.addCommand("sSmell100",setSmell100);
+  sCmd.addCommand("sSmell120",setSmell120);
+  sCmd.addCommand("sSmell140",setSmell140);
+  sCmd.addCommand("sSmell160",setSmell160);
+  sCmd.addCommand("sSmell180",setSmell180);
+
+
+
+
   
 
 }
@@ -81,7 +107,7 @@ void loop() {
 
 
 SerialCommand sCmd;
-
+int pin9 = 9;   // choose the input pin (for a pushbutton)
 int pin6 = 6;   // choose the input pin (for a pushbutton)
 int pin5 = 5;   // choose the input pin (for a pushbutton)
 int pin4 = 4;   // choose the input pin (for a pushbutton)
@@ -90,7 +116,7 @@ int val = 0;     // variable for reading the pin status
 // the setup routine runs once when you press reset:
 
 LinkedList<String> CommandList = LinkedList<String>();
-
+Servo servoMotor ;
 
 void GreenLedON () {
  digitalWrite(pin4,HIGH);
@@ -133,6 +159,38 @@ void Wait1000(){
   delay(1000);
 }
 
+void servo20(){
+  servoMotor.write(20);
+}
+void servo40(){
+  servoMotor.write(40);
+}
+void servo60(){
+  servoMotor.write(60);
+}
+void servo80(){
+  servoMotor.write(80);
+}
+void servo100(){
+  servoMotor.write(100);
+}
+void servo120(){
+  servoMotor.write(120);
+}
+void servo140(){
+  servoMotor.write(140);
+}
+void servo160(){
+  servoMotor.write(160);
+}
+void servo180(){
+  servoMotor.write(180);
+}
+
+void servoOFF(){
+  servoMotor.write(0);
+}
+
 
 //Method that will do all we want on the begining
 void Start(){
@@ -150,6 +208,7 @@ void Stop(){
   RedLedOFF();
   YellowLedOFF();
   GreenLedOFF();
+  servoOFF();
 }
 
 
@@ -158,6 +217,7 @@ void Stop(){
 
 
 void setup() {
+  servoMotor.attach(pin9);
   pinMode(pin2, INPUT);    // declare pushbutton as input
   pinMode(pin4, OUTPUT);    // declare pushbutton as output
   pinMode(pin5, OUTPUT);    // declare pushbutton as output
@@ -181,6 +241,16 @@ void setup() {
   sCmd.addCommand("RedLedOFF",RedLedOFF);
   sCmd.addCommand("Wait500",Wait500);
   sCmd.addCommand("Wait1000",Wait1000);
+  sCmd.addCommand("servoOFF",servoOFF);
+  sCmd.addCommand("servo20",servo20);
+  sCmd.addCommand("servo40",servo40);
+  sCmd.addCommand("servo60",servo60);
+  sCmd.addCommand("servo80",servo80);
+  sCmd.addCommand("servo100",servo100);
+  sCmd.addCommand("servo120",servo120);
+  sCmd.addCommand("servo140",servo140);
+  sCmd.addCommand("servo160",servo160);
+  sCmd.addCommand("servo180",servo180);
 
 }
 
