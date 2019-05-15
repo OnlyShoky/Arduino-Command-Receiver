@@ -10,7 +10,7 @@
  * 
  */
 
-#include "Cabina_agbar.h" 
+#include "CabinaSensorial.h" 
 bool debug = false;
 
 //intensitats VENT (0-255)
@@ -45,14 +45,12 @@ void stopAll(){
   if(debug) Serial.println("[Stop All]");
 
   setHeat(false, false);
-  //digitalWrite(heat1Pin, LOW);
-  //digitalWrite(heat2Pin, LOW);
+ 
   digitalWrite(smellPin, LOW);
   digitalWrite(waterPin, LOW);
   
   setVibration(false);
-  //digitalWrite(vibration1Pin, LOW);
-  //digitalWrite(vibration2Pin, LOW);
+
   DmxMaster.write(1, 0);
   sprayServo.write(sprayOFFval);
   smellServo.write(sprayOFFval);
